@@ -111,10 +111,17 @@ nnoremap <silent>{  :bprevious<cr>
 nnoremap <silent>}  :bnext<cr>
 
 " mapping: files
+function! g:Fgrep(args) abort
+    execute ":silent grep -r " . a:args . " **" | redraw!
+endfunction
+command -nargs=+ -complete=command Filegrep call g:Fgrep(<q-args>)
+
 nnoremap <leader>ff :find **/
 nnoremap <leader>fe :edit **/
+nnoremap <leader>fg :Filegrep<space>
 nnoremap <leader>fr :%s/
 nnoremap <leader>fv :vimgrep<space>
+nnoremap <leader>fx :Ex<cr>
 
 " mapping: panes
 nnoremap <leader>sh :sp<cr>
@@ -150,8 +157,8 @@ nnoremap <leader>th :term      <cr>
 nnoremap <leader>tv :vert term <cr>
 
 " mapping: vim file
-nnoremap <silent><leader>ve :vs ~/.vim/vimrc<cr>
-nnoremap <silent><leader>vs :so ~/.vim/vimrc<cr>
+nnoremap <silent><leader>ve :vs $MYVIMRC<cr>
+nnoremap <silent><leader>vs :so $MYVIMRC<cr>
 
 " mapping: toggle, helpers
 nnoremap <silent><bslash>_  :set cursorline!  <cr>
